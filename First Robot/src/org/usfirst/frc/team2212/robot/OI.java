@@ -9,16 +9,21 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI/* gevald */ {
-	 Joystick JRight = new Joystick(0);
-	JoystickButton craneUpButton = new JoystickButton(JRight, 2);
-	JoystickButton craneDownButton = new JoystickButton(JRight, 3);
-	JoystickButton shootButton = new JoystickButton(JRight, 1);
-	JoystickButton FeedButton = new JoystickButton(JRight, 4);//יש לעדכן כפתור לפעולת האיסוף
-	
-	 Joystick JLeft = new Joystick(1);
+	 //יש לעדכן כפתור לפעולת האיסוף
+	Joystick joystickLeft;
+	Joystick joystickRight;
+	 
 	
 	
 	public OI() {
+		 joystickLeft = new Joystick(1);
+		 joystickRight = new Joystick(0);
+		
+		JoystickButton craneUpButton = new JoystickButton(joystickRight, 2);
+		JoystickButton craneDownButton = new JoystickButton(joystickRight, 3);
+		JoystickButton shootButton = new JoystickButton(joystickRight, 1);
+		JoystickButton FeedButton = new JoystickButton(joystickRight, 4);
+		
 		craneUpButton.whenPressed(new MoveCrane(Crane.CRANE_UP_SPEED));
 		craneDownButton.whenPressed(new MoveCrane(Crane.CRANR_DOWN_SPEED));
 		shootButton.whileHeld(new Feed(Feeder.FEEDER_SPEED));
@@ -26,13 +31,13 @@ public class OI/* gevald */ {
 	}
 
 
-	public double getJRight() {
-		return JLeft.getY();
+	public double getJoystickRight() {
+		return joystickLeft.getY();
 	}
 
 
-	public double getJLeft() {
-		return JRight.getY();
+	public double getJoystickLeft() {
+		return joystickRight.getY();
 	}
 	
 	

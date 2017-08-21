@@ -4,8 +4,13 @@ package org.usfirst.frc.team2212.robot;
 import org.usfirst.frc.team2212.robot.subsystems.Crane;
 import org.usfirst.frc.team2212.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2212.robot.subsystems.Feeder;
+import org.usfirst.frc.team2212.robot.subsystems.Gearbox;
 
+import com.ctre.CANTalon;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -16,12 +21,13 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot  extends IterativeRobot   {
 
-	public static OI oi;
+	
 	public static DriveTrain driveTrain;
 	public static Crane crane;
 	public static Feeder feeder;
+	public static OI oi; 
 	
 	
 	/**
@@ -30,9 +36,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-
-		OI oi = new OI();
-		// chooser.addObject("My Auto", new MyAutoCommand());
+        //RobotMap robotMap = new RobotMap();
+		driveTrain = new DriveTrain(new Gearbox(new CANTalon(RobotMap.canTalon.MOTOR_FRONT_LEFT), new CANTalon(RobotMap.canTalon.MOTOR_BACK_LEFT)),new Gearbox(new CANTalon(RobotMap.canTalon.MOTOR_FRONT_RIGHT), new CANTalon(RobotMap.canTalon.MOTOR_BACK_RIGHT)));
+		crane = new Crane(new VictorSP(RobotMap.PWM.CRANE_PIN), new DigitalInput(RobotMap.DIO.LIMIT_SWICH_UP),new DigitalInput(RobotMap.DIO.LIMIT_SWICH_DOWN));
+		feeder = new Feeder(new VictorSP(RobotMap.PWM.FEEDER_PIN));
+		
+		OI oInterface= new OI();
+		
 	}
 
 	/**
